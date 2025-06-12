@@ -21,18 +21,32 @@ public class Main {
 
                 switch (choice) {
                     case "1":
-                        System.out.print("📝 Enter blog title: ");
-                        String title = scanner.nextLine();
-                        System.out.print("📄 Enter blog content: ");
-                        String content = scanner.nextLine();
+                        String title = "";
+                        while (title.trim().isEmpty()) {
+                            System.out.print("📝 Enter blog title: ");
+                            title = scanner.nextLine();
+                            if (title.trim().isEmpty()) {
+                                System.out.println("❌ Title cannot be empty. Please try again.");
+                            }
+                        }
+
+                        String content = "";
+                        while (content.trim().isEmpty()) {
+                            System.out.print("📄 Enter blog content: ");
+                            content = scanner.nextLine();
+                            if (content.trim().isEmpty()) {
+                                System.out.println("❌ Content cannot be empty. Please try again.");
+                            }
+                        }
+
                         System.out.print("👤 Enter author (optional, press Enter to skip): ");
                         String author = scanner.nextLine();
 
                         System.out.println("\n⏳ Creating blog post...");
                         String createResponse = bot.createPost(
-                                title,
-                                content,
-                                author.isEmpty() ? null : author
+                                title.trim(),
+                                content.trim(),
+                                author.trim().isEmpty() ? null : author.trim()
                         );
                         System.out.println(createResponse);
                         break;
